@@ -2,14 +2,38 @@
 //
 
 #include <iostream>
+#include <vector>
 
 class Node 
 {
 public:
     int N, i, j;
 };
+
+int MinimumStepsRequired(Node N, Node M)
+{
+    int result = 0;
+    if (N.i > M.i)
+    {
+        Node temp = N;
+        N = M;
+        M = temp;
+    }
+    result += (M.i - N.i);
+    if (N.j >= M.j)
+    {
+        result += abs(N.j - M.j);
+    }
+    else
+    {
+        result += abs((N.i - N.j) - (M.i - M.j));
+    }
+    return result;
+}
+
 int main()
 {
+    //Create Nodes
     Node* nodes = new Node[10000];
     int i = 1;
     int j = 1;
@@ -24,7 +48,24 @@ int main()
             j = 1;
         }
     }
-    std::cout << "Hello World!\n";
+
+    //Find minimum amount of steps
+    int N1 = 0;
+    int N2 = 0;
+    std::vector<int> results;
+    while (true)
+    {
+        std::cin >> N1;
+        std::cin >> N2;
+        if (N1 == 0 || N2 == 0) break;
+        results.push_back(MinimumStepsRequired(nodes[N1 - 1], nodes[N2 - 1]));
+    }
+
+    //Print results
+    for (int result : results)
+    {
+        std::cout << result << std::endl;
+    }
     delete[] nodes;
 }
 
