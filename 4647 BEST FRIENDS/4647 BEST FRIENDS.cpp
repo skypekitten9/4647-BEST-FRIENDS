@@ -3,9 +3,29 @@
 
 #include <iostream>
 
+class Node 
+{
+public:
+    int N, i, j;
+};
 int main()
 {
+    Node* nodes = new Node[10000];
+    int i = 1;
+    int j = 1;
+    for (int N = 0; N < 10000; N++)
+    {
+        nodes[N].N = N + 1;
+        nodes[N].i = i;
+        nodes[N].j = j++;
+        if (j > i)
+        {
+            i++;
+            j = 1;
+        }
+    }
     std::cout << "Hello World!\n";
+    delete[] nodes;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
